@@ -40,5 +40,4 @@ fun QuestionWithIncorrectAnswers.toUIModel(): QuizQuestion {
         question = question.question,
         type = question.type
     )
-
 }
