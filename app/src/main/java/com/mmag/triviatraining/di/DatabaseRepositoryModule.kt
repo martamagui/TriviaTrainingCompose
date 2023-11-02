@@ -1,8 +1,8 @@
 package com.mmag.triviatraining.di
 
 import com.mmag.triviatraining.data.db.TriviaDao
-import com.mmag.triviatraining.data.storage.repository.DatabaseRepository
-import com.mmag.triviatraining.data.storage.repository.DatabaseRepositoryImpl
+import com.mmag.triviatraining.data.db.repository.DatabaseRepository
+import com.mmag.triviatraining.data.db.repository.DatabaseRepositoryImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

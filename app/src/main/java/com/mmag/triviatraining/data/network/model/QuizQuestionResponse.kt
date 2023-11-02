@@ -2,6 +2,7 @@ package com.mmag.triviatraining.data.network.model
 
 
 import com.google.gson.annotations.SerializedName
+import com.mmag.triviatraining.data.db.model.QuizQuestionLocal
 
 data class QuizQuestionResponse(
     @SerializedName("category")
@@ -37,4 +38,14 @@ enum class Difficulty : DifficultyInterface {
 
 interface DifficultyInterface {
     fun text(): String
+}
+
+fun QuizQuestionResponse.toLocal(): QuizQuestionLocal {
+    return QuizQuestionLocal(
+        0,
+        category = category,
+        difficulty = difficulty.text(),
+        question = question,
+        type = type
+    )
 }

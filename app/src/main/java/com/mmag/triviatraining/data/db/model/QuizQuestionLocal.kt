@@ -6,8 +6,9 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "quiz_question")
 data class QuizQuestionLocal(
+    @ColumnInfo(name = "id")
     @PrimaryKey(autoGenerate = true)
-    val id: Int,
+    val id: Long,
     @ColumnInfo(name = "category")
     val category: String,
     @ColumnInfo(name = "difficulty")
