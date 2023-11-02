@@ -2,9 +2,11 @@ package com.mmag.triviatraining.data.network.repository
 
 import com.mmag.triviatraining.data.network.NetworkResponse
 import com.mmag.triviatraining.data.network.TriviaService
+import com.mmag.triviatraining.data.network.model.CategoryResponse
 import com.mmag.triviatraining.data.network.model.QuizResponse
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import retrofit2.Response
 import javax.inject.Inject
 
 
@@ -12,9 +14,12 @@ class NetworkRepositoryImpl @Inject constructor(
     private val service: TriviaService
 ) : NetworkRepository {
 
-    override suspend fun getQuestions(number: Int): Flow<NetworkResponse<QuizResponse>> = flow {
+    override suspend fun getQuestions(
+        number: Int,
+        category: Int?
+    ): Flow<NetworkResponse<QuizResponse>> = flow {
         emit(NetworkResponse.Loading())
-        val response = service.getQuestions(number)
+        val response = service.getQuestions(number, category)
         if (response.isSuccessful) {
             emit(NetworkResponse.Success(response.body()))
         } else {
@@ -22,5 +27,14 @@ class NetworkRepositoryImpl @Inject constructor(
         }
     }
 
+    override suspend fun getCategories(): Flow<NetworkResponse<CategoryResponse>> = flow {
+        emit(NetworkResponse.Loading())
+        val response = service.getCategories()
+        if (response.isSuccessful) {
+            emit(NetworkResponse.Success(response.body()))
+        } else {
+            emit(NetworkResponse.Error("Error de carga", null, response.code()))
+        }
+    }
 
 }
