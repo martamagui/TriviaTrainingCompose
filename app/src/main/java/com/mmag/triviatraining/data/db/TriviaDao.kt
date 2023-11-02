@@ -1,11 +1,11 @@
-package com.mmag.triviatraining.data.storage
+package com.mmag.triviatraining.data.db
 
-/*
+
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
-import com.mmag.triviatraining.data.storage.model.QuizQuestionLocal
+import com.mmag.triviatraining.data.db.model.QuizQuestionLocal
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -18,4 +18,4 @@ interface TriviaDao {
 
     @Delete
     fun delete(questionLocal: QuizQuestionLocal)
-}*/
+}

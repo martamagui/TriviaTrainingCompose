@@ -1,10 +1,8 @@
-package com.mmag.triviatraining.data.storage
+package com.mmag.triviatraining.data.db
 
-/*
+
 import android.content.Context
 import androidx.room.Room
-import androidx.room.RoomDatabase
-import com.mmag.triviatraining.data.storage.model.QuizQuestionLocal
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -27,4 +25,4 @@ object RoomDataBaseModule {
         return database.triviaDao()
     }
 
-}*/
+}

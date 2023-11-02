@@ -97,9 +97,9 @@ dependencies {
     implementation ("androidx.lifecycle:lifecycle-runtime-compose:$lifecycleVersion")
 
     //Room
-    /*implementation("androidx.room:room-runtime:$room_version")
+    implementation("androidx.room:room-runtime:$room_version")
     kapt("androidx.room:room-compiler:$room_version")
-    implementation("androidx.room:room-ktx:$room_version")*/
+    implementation("androidx.room:room-ktx:$room_version")
 
     //Retrofit
     implementation("com.squareup.retrofit2:retrofit:$retrofit_version")
