@@ -1,5 +1,6 @@
 package com.mmag.triviatraining.data.storage.model
 
+/*
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
@@ -17,3 +18,4 @@ data class QuizQuestionLocal(
     @ColumnInfo(name = "type")
     val type: String
 )
+*/

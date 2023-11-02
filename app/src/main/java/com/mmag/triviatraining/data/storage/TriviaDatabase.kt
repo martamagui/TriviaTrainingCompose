@@ -1,5 +1,6 @@
 package com.mmag.triviatraining.data.storage
 
+/*
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import com.mmag.triviatraining.data.storage.model.QuizQuestionLocal
@@ -8,4 +9,4 @@ import com.mmag.triviatraining.data.storage.model.QuizQuestionLocal
 abstract class TriviaDatabase : RoomDatabase() {
     abstract fun triviaDao(): TriviaDao
 
-}
+}*/

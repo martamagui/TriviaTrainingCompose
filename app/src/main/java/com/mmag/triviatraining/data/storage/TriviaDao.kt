@@ -1,5 +1,6 @@
 package com.mmag.triviatraining.data.storage
 
+/*
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
@@ -17,4 +18,4 @@ interface TriviaDao {
 
     @Delete
     fun delete(questionLocal: QuizQuestionLocal)
-}
+}*/

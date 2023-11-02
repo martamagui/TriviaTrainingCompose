@@ -21,6 +21,8 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
+
+
     }
     buildTypes {
         release {
@@ -73,7 +75,7 @@ dependencies {
 
 
     val room_version = "2.5.0"
-    val hilt_version = "2.42"
+    val hilt_version = "2.44"
     val retrofit_version = "2.9.0"
     val nav_version = "2.6.0"
     val material_version = "1.2.0-alpha02"
@@ -84,15 +86,20 @@ dependencies {
     //Dagger Hilt
     implementation("com.google.dagger:hilt-android:$hilt_version")
     kapt("com.google.dagger:hilt-android-compiler:$hilt_version")
+    kapt ("androidx.hilt:hilt-compiler:1.0.0")
+    implementation ("androidx.hilt:hilt-navigation-compose:1.0.0")
+
 
     //LiveData
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.3.1")
-    implementation("androidx.compose.runtime:runtime-livedata:1.2.1")
+    val lifecycleVersion = "2.6.0-alpha05"
+    implementation ("androidx.lifecycle:lifecycle-viewmodel-compose:$lifecycleVersion")
+    implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion")
+    implementation ("androidx.lifecycle:lifecycle-runtime-compose:$lifecycleVersion")
 
     //Room
-    implementation("androidx.room:room-runtime:$room_version")
+    /*implementation("androidx.room:room-runtime:$room_version")
     kapt("androidx.room:room-compiler:$room_version")
-    implementation("androidx.room:room-ktx:$room_version")
+    implementation("androidx.room:room-ktx:$room_version")*/
 
     //Retrofit
     implementation("com.squareup.retrofit2:retrofit:$retrofit_version")

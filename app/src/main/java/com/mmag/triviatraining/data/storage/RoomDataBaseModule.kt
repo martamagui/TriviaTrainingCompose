@@ -1,5 +1,6 @@
 package com.mmag.triviatraining.data.storage
 
+/*
 import android.content.Context
 import androidx.room.Room
 import androidx.room.RoomDatabase
@@ -26,4 +27,4 @@ object RoomDataBaseModule {
         return database.triviaDao()
     }
 
-}
+}*/
