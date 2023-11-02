@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.Flow
 interface DatabaseRepository {
     suspend fun insertQuestions(list: List<QuizQuestionResponse>)
 
-    suspend fun findAllQuestions(): Flow<QuestionWithIncorrectAnswers>
+    suspend fun findAllQuestions(): List<QuestionWithIncorrectAnswers>
 
     suspend fun delete(questionLocal: QuizQuestionLocal)
 }

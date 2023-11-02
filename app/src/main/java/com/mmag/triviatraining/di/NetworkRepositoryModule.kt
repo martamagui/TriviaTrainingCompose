@@ -14,7 +14,7 @@ import javax.inject.Singleton
 object NetworkRepositoryModule {
     @Singleton
     @Provides
-    fun providesNetworkRepository(service: TriviaService): NetworkRepository{
+    fun providesNetworkRepository(service: TriviaService): NetworkRepository {
         return NetworkRepositoryImpl(service)
     }
 

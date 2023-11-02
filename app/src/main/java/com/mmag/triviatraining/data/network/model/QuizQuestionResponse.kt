@@ -32,7 +32,7 @@ enum class Difficulty : DifficultyInterface {
 
     @SerializedName("easy")
     EASY {
-        override fun text(): String = "eady"
+        override fun text(): String = "easy"
     }
 }
 
@@ -46,6 +46,7 @@ fun QuizQuestionResponse.toLocal(): QuizQuestionLocal {
         category = category,
         difficulty = difficulty.text(),
         question = question,
+        correctAnswer = correctAnswer,
         type = type
     )
 }

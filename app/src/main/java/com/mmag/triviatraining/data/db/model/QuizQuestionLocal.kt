@@ -13,6 +13,8 @@ data class QuizQuestionLocal(
     val category: String,
     @ColumnInfo(name = "difficulty")
     val difficulty: String,
+    @ColumnInfo(name = "correct_answer")
+    val correctAnswer: String,
     @ColumnInfo(name = "question")
     val question: String,
     @ColumnInfo(name = "type")

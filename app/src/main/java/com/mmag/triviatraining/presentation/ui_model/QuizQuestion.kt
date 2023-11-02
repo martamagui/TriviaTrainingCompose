@@ -1,15 +1,26 @@
 package com.mmag.triviatraining.presentation.ui_model
 
-import com.google.gson.annotations.SerializedName
-import com.mmag.triviatraining.data.network.model.Difficulty
+import com.mmag.triviatraining.data.network.model.DifficultyInterface
 
 data class QuizQuestion(
-    val id: Int,
+    val id: Long,
     val category: String,
     val correctAnswer: String,
-    val difficulty: Difficulty,
+    val difficulty: String,
     val incorrectAnswers: List<String>,
     val question: String,
     val type: String
 )
 
+
+enum class DifficultyUI(value: String) : DifficultyInterface {
+    HARD("hard") {
+        override fun text(): String = "hard"
+    },
+    MEDIUM("medium") {
+        override fun text(): String = "medium"
+    },
+    EASY("easy") {
+        override fun text(): String = "easy"
+    }
+}

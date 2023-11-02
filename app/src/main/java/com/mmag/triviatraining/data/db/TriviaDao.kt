@@ -23,7 +23,7 @@ interface TriviaDao {
 
     @Transaction
     @Query("SELECT *  FROM quiz_question")
-    fun findAllQuestions(): Flow<QuestionWithIncorrectAnswers>
+    fun findAllQuestions(): List<QuestionWithIncorrectAnswers>
 
     @Delete
     fun delete(questionLocal: QuizQuestionLocal)

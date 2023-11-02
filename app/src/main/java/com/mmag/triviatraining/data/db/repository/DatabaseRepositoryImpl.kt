@@ -23,7 +23,7 @@ class DatabaseRepositoryImpl @Inject constructor(private val dao: TriviaDao) : D
         }
     }
 
-    override suspend fun findAllQuestions(): Flow<QuestionWithIncorrectAnswers> {
+    override suspend fun findAllQuestions(): List<QuestionWithIncorrectAnswers> {
         return dao.findAllQuestions()
     }
 

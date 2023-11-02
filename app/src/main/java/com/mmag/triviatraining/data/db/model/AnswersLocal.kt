@@ -5,9 +5,10 @@ import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import androidx.room.Relation
+import com.mmag.triviatraining.presentation.ui_model.QuizQuestion
 
 @Entity(tableName = "quiz_answer")
-data class IncorrectAnswerLocal (
+data class IncorrectAnswerLocal(
     @PrimaryKey(autoGenerate = true)
     val id: Long,
     @ColumnInfo(name = "question_id")
@@ -24,3 +25,19 @@ data class QuestionWithIncorrectAnswers(
     )
     val incorrectAnswersList: List<IncorrectAnswerLocal>
 )
+
+fun QuestionWithIncorrectAnswers.toUIModel(): QuizQuestion {
+    val incorrectAnswers: MutableList<String> = mutableListOf()
+    this.incorrectAnswersList.forEach {
+        incorrectAnswers.add(it.answer)
+    }
+    return QuizQuestion(
+        id = question.id,
+        category = question.category,
+        correctAnswer = question.correctAnswer,
+        difficulty = question.difficulty,
+        incorrectAnswers = incorrectAnswers.toList(),
+        question = question.question,
+        type = question.type
+    )
+}
