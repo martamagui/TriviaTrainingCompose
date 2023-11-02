@@ -6,13 +6,15 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.mmag.triviatraining.presentation.views.Home
+import com.mmag.triviatraining.presentation.views.HomeViewModel
 import com.mmag.triviatraining.presentation.views.Splash
 import com.mmag.triviatraining.presentation.views.quiz.QuizContainer
 
 @Composable
 fun TriviaTrainingMainNavGraph(
     navController: NavHostController = rememberNavController(),
-    navActions: TriviaTrainingNavActions
+    navActions: TriviaTrainingNavActions,
+    viewModel: HomeViewModel
 ) {
     NavHost(
         navController = navController,
@@ -22,7 +24,7 @@ fun TriviaTrainingMainNavGraph(
             Splash(navController = navController)
         }
         composable(route =TriviaTrainingNavigationConfigRoutes.HOME_ROUTE) {
-            Home(navController = navController)
+            Home(navController = navController, viewModel)
         }
         composable(route =TriviaTrainingNavigationConfigRoutes.QUIZ_ROUTE) {
             QuizContainer(navController = navController)

@@ -35,7 +35,7 @@ class MainActivity : ComponentActivity() {
                     val navActions = remember(navController) {
                         TriviaTrainingNavActions(navController)
                     }
-                    TriviaTrainingMainNavGraph(navActions = navActions)
+                    TriviaTrainingMainNavGraph(navActions = navActions, viewModel = viewModel)
                 }
             }
         }

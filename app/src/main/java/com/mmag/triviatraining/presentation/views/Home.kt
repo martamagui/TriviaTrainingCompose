@@ -7,11 +7,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.navigation.NavController
-import com.mmag.triviatraining.presentation.TriviaTrainingNavActions
 
 @Composable
-fun Home(navController: NavController){
-    Box(modifier = Modifier.background(Color.Magenta).fillMaxSize()){
+fun Home(navController: NavController, viewModel: HomeViewModel) {
+
+    Box(modifier = Modifier
+        .background(Color.Magenta)
+        .fillMaxSize()) {
 
     }
 }
