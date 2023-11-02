@@ -10,8 +10,8 @@ import javax.inject.Inject
 
 class NetworkRepositoryImpl @Inject constructor(
     private val service: TriviaService
-) :
-    NetworkRepository {
+) : NetworkRepository {
+
     override suspend fun getQuestions(number: Int): Flow<NetworkResponse<QuizResponse>> = flow {
         emit(NetworkResponse.Loading())
         val response = service.getQuestions(number)
