@@ -71,6 +71,12 @@ fun CategoryItem(item: QuizCategory, onClick: () -> Unit) {
             .height(200.dp)
             .padding(12.dp)
     ) {
-        Text(text = item.name, fontFamily = fontExo)
+        Column(
+            Modifier
+                .fillMaxSize()
+                .padding(12.dp)) {
+            Text(text = item.name, fontFamily = fontExo)
+        }
+
     }
 }

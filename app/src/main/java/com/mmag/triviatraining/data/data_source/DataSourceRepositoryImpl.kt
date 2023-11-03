@@ -6,8 +6,6 @@ import com.mmag.triviatraining.data.db.model.QuestionWithIncorrectAnswers
 import com.mmag.triviatraining.data.db.model.toUIModel
 import com.mmag.triviatraining.data.db.repository.DatabaseRepository
 import com.mmag.triviatraining.data.network.NetworkResponse
-import com.mmag.triviatraining.data.network.model.QuizQuestionResponse
-import com.mmag.triviatraining.data.network.model.TriviaCategory
 import com.mmag.triviatraining.data.network.model.toLocal
 import com.mmag.triviatraining.data.network.repository.NetworkRepository
 import com.mmag.triviatraining.presentation.ui_model.QuizCategory
@@ -15,7 +13,6 @@ import com.mmag.triviatraining.presentation.ui_model.QuizQuestion
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.FlowCollector
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.withContext
 import javax.inject.Inject

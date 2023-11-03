@@ -7,6 +7,7 @@ import com.mmag.triviatraining.data.db.model.QuestionWithIncorrectAnswers
 import com.mmag.triviatraining.data.db.model.QuizQuestionLocal
 import com.mmag.triviatraining.data.network.model.QuizQuestionResponse
 import com.mmag.triviatraining.data.network.model.toLocal
+import com.mmag.triviatraining.utils.cleanText
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
@@ -18,7 +19,7 @@ class DatabaseRepositoryImpl @Inject constructor(private val dao: TriviaDao) : D
             val savedQuestion = dao.insertQuestion(question.toLocal())
             val incorrectAnswers = mutableListOf<IncorrectAnswerLocal>()
             question.incorrectAnswers.forEach { answer ->
-                val answer = IncorrectAnswerLocal(0, savedQuestion, answer)
+                val answer = IncorrectAnswerLocal(0, savedQuestion, answer.cleanText())
                 incorrectAnswers.add(answer)
             }
             dao.insertAllAnswer(incorrectAnswers)

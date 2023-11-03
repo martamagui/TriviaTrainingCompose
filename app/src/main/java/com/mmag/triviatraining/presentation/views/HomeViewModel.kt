@@ -29,11 +29,6 @@ class HomeViewModel @Inject constructor(
 
     init {
         viewModelScope.launch(Dispatchers.IO) {
-            dataSourceRepository.getQuestionsByCategory(null).collect { it ->
-
-            }
-        }
-        viewModelScope.launch(Dispatchers.IO) {
             dataSourceRepository.getCategories().collect { it ->
                 if (!it.isNullOrEmpty()) {
                     val list = it

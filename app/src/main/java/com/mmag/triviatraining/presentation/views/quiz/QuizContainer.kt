@@ -2,10 +2,12 @@ package com.mmag.triviatraining.presentation.views.quiz
 
 import android.util.Log
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.pager.HorizontalPager
@@ -61,22 +63,31 @@ fun QuestionPage(
     question: QuizQuestion
 ) {
 
-    Card(modifier = modifier) {
-        Text(text = question.question, fontFamily = fontAgbalumo)
-        Spacer(modifier = Modifier.height(24.dp))
-        LazyColumn(modifier = Modifier.fillMaxWidth()) {
-            items(question.allAnswers) { item ->
-                Button(onClick = {
-                    if (question.correctAnswer == item) {
-                        onCorrectInteraction()
-                    } else {
-                        onIncorrectInteraction()
+    Card(modifier = modifier.padding(32.dp)) {
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(12.dp)
+        ) {
+            Text(text = question.question, fontFamily = fontExo)
+            Spacer(modifier = Modifier.height(24.dp))
+            LazyColumn(modifier = Modifier.fillMaxWidth()) {
+                items(question.allAnswers) { item ->
+                    Button(
+                        onClick = {
+                            if (question.correctAnswer == item) {
+                                onCorrectInteraction()
+                            } else {
+                                onIncorrectInteraction()
+                            }
+                        }, modifier = Modifier.fillMaxWidth()
+                    ) {
+                        Text(text = item, fontFamily = fontExo)
                     }
-                }) {
-                    Text(text = item, fontFamily = fontExo)
                 }
             }
         }
+
     }
 
 }
