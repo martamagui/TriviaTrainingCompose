@@ -27,17 +27,20 @@ data class QuestionWithIncorrectAnswers(
 )
 
 fun QuestionWithIncorrectAnswers.toUIModel(): QuizQuestion {
-    val incorrectAnswers: MutableList<String> = mutableListOf()
+    val allAnswers: MutableList<String> = mutableListOf()
     this.incorrectAnswersList.forEach {
-        incorrectAnswers.add(it.answer)
+        allAnswers.add(it.answer)
     }
+    allAnswers.add(question.correctAnswer)
+    allAnswers.shuffle()
+
     return QuizQuestion(
         id = question.id,
         category = question.category,
         correctAnswer = question.correctAnswer,
         difficulty = question.difficulty,
-        incorrectAnswers = incorrectAnswers.toList(),
         question = question.question,
-        type = question.type
+        type = question.type,
+        allAnswers = allAnswers.toList()
     )
 }

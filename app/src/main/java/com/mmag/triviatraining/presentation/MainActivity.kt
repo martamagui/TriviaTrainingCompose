@@ -32,10 +32,8 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
                     val navController = rememberNavController()
-                    val navActions = remember(navController) {
-                        TriviaTrainingNavActions(navController)
-                    }
-                    TriviaTrainingMainNavGraph(navActions = navActions, viewModel = viewModel)
+
+                    TriviaTrainingMainNavGraph(navController, viewModel = viewModel)
                 }
             }
         }

@@ -54,10 +54,13 @@ class DataSourceRepositoryImpl @Inject constructor(
                         dbResponse,
                         this,
                         this@DataSourceRepositoryImpl,
-                        category
+                        null
                     )
                 }
             } else {
+                withContext(Dispatchers.IO) {
+                    updateQuestionsFromRemote(category?.id)
+                }
                 databaseRepository.findAQuestionsByCategory(category.name).collect { dbResponse ->
                     handleDatabaseResponse(
                         dbResponse,
@@ -87,7 +90,7 @@ class DataSourceRepositoryImpl @Inject constructor(
     }
     //endregion --- Questions
 
-    //region --- Category
+    //region --- Categories
     private suspend fun updateCategoriesFromRemote() {
         networkRepository.getCategories().collect { response ->
             when (response) {
@@ -125,7 +128,7 @@ class DataSourceRepositoryImpl @Inject constructor(
             }
         }
     }
-    //endregion --- Category
+    //endregion --- Categories
 
 }
 

@@ -1,5 +1,6 @@
 package com.mmag.triviatraining.presentation.ui_model
 
+import com.mmag.triviatraining.data.db.model.QuestionWithIncorrectAnswers
 import com.mmag.triviatraining.data.network.model.DifficultyInterface
 
 data class QuizQuestion(
@@ -7,7 +8,7 @@ data class QuizQuestion(
     val category: String,
     val correctAnswer: String,
     val difficulty: String,
-    val incorrectAnswers: List<String>,
+    val allAnswers: List<String>,
     val question: String,
     val type: String
 )
