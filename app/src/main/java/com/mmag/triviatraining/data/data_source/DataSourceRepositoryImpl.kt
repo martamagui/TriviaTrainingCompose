@@ -13,6 +13,7 @@ import com.mmag.triviatraining.presentation.ui_model.QuizQuestion
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.FlowCollector
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -23,9 +24,11 @@ class DataSourceRepositoryImpl @Inject constructor(
     private val databaseRepository: DatabaseRepository
 ) : DataSourceRepository {
 
+    private val tag = "DataSourceRepositoryImpl"
+
     //region --- Questions
-    private suspend fun updateQuestionsFromRemote(category: Int?) {
-        val response = networkRepository.getQuestions(10, category)
+    override suspend fun updateQuestionsFromRemote(category: Int?) {
+        val response = networkRepository.getQuestions(20, category)
         response.collect { response ->
             when (response) {
                 is NetworkResponse.Error -> {
@@ -67,6 +70,9 @@ class DataSourceRepositoryImpl @Inject constructor(
                     )
                 }
             }
+        }.catch {
+            Log.e(tag, "${it.message}")
+            emit(listOf())
         }
 
     private suspend fun handleDatabaseResponse(
@@ -124,6 +130,9 @@ class DataSourceRepositoryImpl @Inject constructor(
                 }
             }
         }
+    }.catch {
+        Log.e(tag, "${it.message}")
+        emit(mutableListOf())
     }
     //endregion --- Categories
 
