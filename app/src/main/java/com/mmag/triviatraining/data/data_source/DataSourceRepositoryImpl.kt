@@ -28,7 +28,11 @@ class DataSourceRepositoryImpl @Inject constructor(
 
     //region --- Questions
     override suspend fun updateQuestionsFromRemote(category: Int?) {
-        val response = networkRepository.getQuestions(20, category)
+        var quantity = 10
+        if (category == null) {
+            quantity = 50
+        }
+        val response = networkRepository.getQuestions(quantity, category)
         response.collect { response ->
             when (response) {
                 is NetworkResponse.Error -> {
@@ -59,7 +63,7 @@ class DataSourceRepositoryImpl @Inject constructor(
                 }
             } else {
                 withContext(Dispatchers.IO) {
-                    updateQuestionsFromRemote(category?.id)
+                    updateQuestionsFromRemote(category.id)
                 }
                 databaseRepository.findAQuestionsByCategory(category.name).collect { dbResponse ->
                     handleDatabaseResponse(
@@ -81,7 +85,7 @@ class DataSourceRepositoryImpl @Inject constructor(
         dataSourceRepositoryImpl: DataSourceRepositoryImpl,
         category: QuizCategory?
     ) {
-        if (!dbResponse.isNullOrEmpty()) {
+        if (dbResponse.isNotEmpty()) {
             val list = mutableSetOf<QuizQuestion>()
             dbResponse.forEach { question ->
                 list.add(question.toUIModel())

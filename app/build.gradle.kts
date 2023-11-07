@@ -73,7 +73,6 @@ dependencies {
     implementation("androidx.compose.ui:ui-tooling-preview")
     implementation("androidx.compose.material3:material3")
 
-
     val room_version = "2.5.0"
     val hilt_version = "2.44"
     val retrofit_version = "2.9.0"
@@ -111,6 +110,11 @@ dependencies {
 
     //DataStore
     implementation("androidx.datastore:datastore-preferences:1.0.0")
+
+    //Work
+    implementation("androidx.work:work-runtime-ktx:2.8.1")
+    implementation("androidx.hilt:hilt-common:1.1.0")
+    implementation("androidx.hilt:hilt-work:1.1.0")
 
     // Test
     testImplementation("junit:junit:4.13.2")
