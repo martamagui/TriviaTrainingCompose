@@ -42,7 +42,6 @@ class TriviaTrainingApplication : Application(), Configuration.Provider {
                 .addTag("updateQuizData")
                 .build()
 
-
         WorkManager.getInstance(applicationContext).enqueueUniquePeriodicWork(
             "updateQuizData",
             ExistingPeriodicWorkPolicy.CANCEL_AND_REENQUEUE, refreshCpnWork
