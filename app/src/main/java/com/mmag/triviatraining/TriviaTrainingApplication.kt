@@ -60,7 +60,7 @@ class TriviaTrainingApplication : Application(), Configuration.Provider {
         if (dueDate.before(currentDate)) {
             dueDate.add(Calendar.HOUR_OF_DAY, 24)
         }
-        return dueDate.timeInMillis
+        return currentDate.timeInMillis - dueDate.timeInMillis
     }
 
 }

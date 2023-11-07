@@ -6,7 +6,7 @@ object TriviaTrainingNavigationConfigRoutes {
     const val HOME_ROUTE = "HOME_ROUTE"
     const val SPLASH_ROUTE = "SPLASH_ROUTE"
     const val QUIZ_ROUTE = "QUIZ_ROUTE/{category}/{categoryName}"
-    const val RESULT_ROUTE = "RESULT_ROUTE/{success}/{failure}"
+    const val RESULT_ROUTE = "RESULT_ROUTE/{success}/{questions_amount}"
 }
 
 object TriviaTrainingRouteBuilder {
@@ -22,7 +22,5 @@ object TriviaTrainingRouteBuilder {
     fun goToResult(success: Int, failure: Int) =
         "${TriviaTrainingNavigationConfigRoutes.RESULT_ROUTE}"
             .replace("{success}", "$success")
-            .replace("{failure}", "$failure")
-
-
+            .replace("{questions_amount}", "$failure")
 }

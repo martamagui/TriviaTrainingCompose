@@ -1,29 +1,24 @@
 package com.mmag.triviatraining.presentation.views.quiz
 
-import androidx.compose.animation.core.Easing
 import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.pager.rememberPagerState
-import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonColors
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
@@ -34,8 +29,6 @@ import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.mmag.triviatraining.presentation.TriviaTrainingRouteBuilder
@@ -55,7 +48,7 @@ import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun QuizContainer(
+fun QuizScreen(
     navController: NavController,
     viewModel: HomeViewModel,
     category: QuizCategory
@@ -82,10 +75,12 @@ fun QuizContainer(
                 QuestionPage(
                     modifier = Modifier.fillMaxWidth(),
                     onInteraction = { value ->
+                        if (value) {
+                            successState++
+                        }
                         onResponseInteraction(
-                            scope,
-                            value,
                             successState,
+                            scope,
                             pagerState,
                             navController,
                             questionList
@@ -108,19 +103,14 @@ fun QuizContainer(
 
 @OptIn(ExperimentalFoundationApi::class)
 private fun onResponseInteraction(
-    scope: CoroutineScope,
-    value: Boolean,
     successState: Int,
+    scope: CoroutineScope,
     pagerState: PagerState,
     navController: NavController,
     questionList: List<QuizQuestion>?
 ) {
-    var successState1 = successState
     scope.launch {
         delay(400)
-        if (value) {
-            successState1++
-        }
         with(pagerState) {
             val target = if (currentPage < pageCount - 1) currentPage + 1 else 0
             if (target != 0) {
@@ -132,7 +122,7 @@ private fun onResponseInteraction(
                 )
             } else {
                 val route = TriviaTrainingRouteBuilder.goToResult(
-                    successState1, questionList!!.size - successState1
+                    successState, questionList!!.size
                 )
                 navController.navigate(route)
             }
@@ -156,30 +146,42 @@ fun QuestionPage(
             Spacer(modifier = Modifier.height(24.dp))
             LazyColumn(modifier = Modifier.fillMaxWidth()) {
                 items(question.allAnswers) { item ->
-                    QuestionButton(question, item, onInteraction, Modifier.fillMaxWidth())
+                    QuestionButton(
+                        item, {
+                            onInteraction(question.correctAnswer == item)
+                        },
+                        Modifier.fillMaxWidth(),
+                        question.correctAnswer == item
+                    )
+
                 }
             }
         }
-
     }
-
 }
 
 @Composable
 private fun QuestionButton(
-    question: QuizQuestion,
     item: String,
-    onInteraction: (value: Boolean) -> Unit,
-    modifier: Modifier
+    onInteraction: () -> Unit,
+    modifier: Modifier,
+    isCorrect: Boolean
 ) {
+    val resultColor = if (isCorrect) seed else md_theme_dark_onError
     var isResultClicked by rememberSaveable { mutableStateOf(false) }
-    val resultColor = if (question.correctAnswer == item) seed else md_theme_dark_onError
+
     Button(
         onClick = {
             isResultClicked = true
-            onInteraction(question.correctAnswer == item)
-        }, modifier = modifier
-            .background(if (isResultClicked) resultColor else md_theme_light_primary)
+            onInteraction()
+        }, modifier = modifier,
+        colors = ButtonDefaults.buttonColors(
+            containerColor = if (isResultClicked) {
+                resultColor
+            } else {
+                md_theme_light_primary
+            }
+        )
     ) {
         Text(text = item, fontFamily = fontExo)
     }

@@ -8,10 +8,11 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.mmag.triviatraining.presentation.ui_model.QuizCategory
-import com.mmag.triviatraining.presentation.views.Home
+import com.mmag.triviatraining.presentation.views.HomeScreen
 import com.mmag.triviatraining.presentation.views.HomeViewModel
-import com.mmag.triviatraining.presentation.views.Splash
-import com.mmag.triviatraining.presentation.views.quiz.QuizContainer
+import com.mmag.triviatraining.presentation.views.ResultScreen
+import com.mmag.triviatraining.presentation.views.SplashScreen
+import com.mmag.triviatraining.presentation.views.quiz.QuizScreen
 
 @Composable
 fun TriviaTrainingMainNavGraph(
@@ -24,10 +25,10 @@ fun TriviaTrainingMainNavGraph(
         startDestination = TriviaTrainingNavigationConfigRoutes.HOME_ROUTE
     ) {
         composable(route = TriviaTrainingNavigationConfigRoutes.SPLASH_ROUTE) {
-            Splash(navController = navController)
+            SplashScreen(navController = navController)
         }
         composable(route = TriviaTrainingNavigationConfigRoutes.HOME_ROUTE) {
-            Home(navController, viewModel)
+            HomeScreen(navController, viewModel)
         }
         composable(
             route = TriviaTrainingNavigationConfigRoutes.QUIZ_ROUTE,
@@ -41,9 +42,20 @@ fun TriviaTrainingMainNavGraph(
                     it.arguments?.getInt("category")!!,
                     it.arguments?.getString("categoryName")!!
                 )
-                QuizContainer(navController = navController, viewModel, category)
+                QuizScreen(navController = navController, viewModel, category)
             }
-
+        }
+        composable(route = TriviaTrainingNavigationConfigRoutes.RESULT_ROUTE,
+            arguments = listOf(
+                navArgument("success") { type = NavType.IntType },
+                navArgument("questions_amount") { type = NavType.IntType }
+            )) {
+            if (it.arguments != null) {
+                val success = it.arguments?.getInt("success")!!
+                val questionAmount = it.arguments?.getInt("questions_amount")!!
+                ResultScreen(navController, success, questionAmount, viewModel)
+            }
         }
     }
 }
+

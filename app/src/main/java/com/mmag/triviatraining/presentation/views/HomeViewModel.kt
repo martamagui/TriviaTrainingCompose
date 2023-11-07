@@ -36,9 +36,6 @@ class HomeViewModel @Inject constructor(
                 }
             }
         }
-        viewModelScope.launch(Dispatchers.IO) {
-            dataSourceRepository.updateQuestionsFromRemote(null)
-        }
     }
 
     fun requestCategoryQuestions(category: QuizCategory) {

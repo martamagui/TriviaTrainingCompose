@@ -1,4 +1,10 @@
 <resources>
     <string name="app_name">Trivia Training</string>
     <string name="home_greeting">Welcome to TriviaTraining!</string>
+
+
+    <string name="result_title">Your score in this quiz was: %1s\n</string>
+    <string name="result_subtitle">You got %1s of %2s questions.</string>
+    <string name="result_positive">Well done!</string>
+    <string name="result_negative">Don\'t worry, keep practicing!</string>
 </resources>
