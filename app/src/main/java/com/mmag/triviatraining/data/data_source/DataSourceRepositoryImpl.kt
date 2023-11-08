@@ -10,6 +10,7 @@ import com.mmag.triviatraining.data.network.model.toLocal
 import com.mmag.triviatraining.data.network.repository.NetworkRepository
 import com.mmag.triviatraining.presentation.ui_model.QuizCategory
 import com.mmag.triviatraining.presentation.ui_model.QuizQuestion
+import com.mmag.triviatraining.presentation.ui_model.TriviaResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.FlowCollector
@@ -49,9 +50,9 @@ class DataSourceRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun getQuestionsByCategory(category: QuizCategory?): Flow<List<QuizQuestion>> =
+    override suspend fun getQuestionsByCategory(category: QuizCategory?): Flow<TriviaResponse<List<QuizQuestion>>> =
         flow {
-            emit(listOf())
+            emit(TriviaResponse.Loading())
             if (category == null) {
                 databaseRepository.findAllQuestions().collect { dbResponse ->
                     handleDatabaseResponse(
@@ -76,12 +77,12 @@ class DataSourceRepositoryImpl @Inject constructor(
             }
         }.catch {
             Log.e(tag, "${it.message}")
-            emit(listOf())
+            emit(TriviaResponse.Error(it.message))
         }
 
     private suspend fun handleDatabaseResponse(
         dbResponse: List<QuestionWithIncorrectAnswers>,
-        flowCollector: FlowCollector<List<QuizQuestion>>,
+        flowCollector: FlowCollector<TriviaResponse<List<QuizQuestion>>>,
         dataSourceRepositoryImpl: DataSourceRepositoryImpl,
         category: QuizCategory?
     ) {
@@ -90,8 +91,9 @@ class DataSourceRepositoryImpl @Inject constructor(
             dbResponse.forEach { question ->
                 list.add(question.toUIModel())
             }
-            flowCollector.emit(list.toList())
+            flowCollector.emit(TriviaResponse.Success(list.toList()))
         } else {
+            //TODO poner el que emita el error si falla la petición de red
             dataSourceRepositoryImpl.updateQuestionsFromRemote(category?.id)
         }
     }
@@ -102,6 +104,7 @@ class DataSourceRepositoryImpl @Inject constructor(
         networkRepository.getCategories().collect { response ->
             when (response) {
                 is NetworkResponse.Error -> {
+                    //TODO poner el que emita el error si falla la petición de red
                     Log.e("Error", "${response.message}")
                 }
 
@@ -122,21 +125,23 @@ class DataSourceRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun getCategories(): Flow<List<QuizCategory>> = flow {
+    override suspend fun getCategories(): Flow<TriviaResponse<List<QuizCategory>>> = flow {
         databaseRepository.getCategories().collect { categories ->
+            emit(TriviaResponse.Loading<List<QuizCategory>>())
             if (categories != null) {
                 if (categories.isNotEmpty()) {
                     val transformedList = mutableListOf<QuizCategory>()
                     categories.forEach { transformedList.add(it.toUIModel()) }
-                    emit(transformedList)
+                    emit(TriviaResponse.Success(transformedList.toList()))
                 } else {
+                    //TODO poner el que emita el error si falla la petición de red
                     updateCategoriesFromRemote()
                 }
             }
         }
     }.catch {
         Log.e(tag, "${it.message}")
-        emit(mutableListOf())
+        emit(TriviaResponse.Error(it.message))
     }
     //endregion --- Categories
 

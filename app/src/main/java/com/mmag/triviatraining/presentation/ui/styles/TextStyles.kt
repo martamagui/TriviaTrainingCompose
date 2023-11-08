@@ -1,6 +1,7 @@
 package com.mmag.triviatraining.presentation.ui.styles
 
 import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
@@ -23,5 +24,9 @@ val titleStyle = TextStyle(
 )
 
 val categoryTitleStyle = TextStyle(
-
+    fontFamily = FontFamily.SansSerif,
+    fontSize = 18.sp,
+    fontWeight = FontWeight.SemiBold,
+    textAlign = TextAlign.Justify,
+    color = Color.White
 )

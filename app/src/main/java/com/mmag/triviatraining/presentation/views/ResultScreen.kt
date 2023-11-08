@@ -4,10 +4,12 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.PlatformTextStyle
 import androidx.compose.ui.text.TextStyle
@@ -16,6 +18,11 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.mmag.triviatraining.R
+import com.mmag.triviatraining.presentation.ui.theme.Purple50
+import com.mmag.triviatraining.presentation.ui.theme.Purple80
+import com.mmag.triviatraining.presentation.ui.theme.md_theme_dark_secondary
+import com.mmag.triviatraining.utils.getRandomGradientAngle
+import com.mmag.triviatraining.utils.gradientBackground
 import com.mmag.triviatraining.utils.toStringFormatted
 
 @Composable
@@ -26,7 +33,14 @@ fun ResultScreen(
     viewModel: HomeViewModel
 ) {
     Column(
-        Modifier.fillMaxSize(),
+        Modifier
+            .fillMaxSize()
+            .padding(24.dp)
+            .clip(RoundedCornerShape(12.dp))
+            .gradientBackground(
+                listOf(md_theme_dark_secondary, Purple80, Purple50),
+                getRandomGradientAngle()
+            ),
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {

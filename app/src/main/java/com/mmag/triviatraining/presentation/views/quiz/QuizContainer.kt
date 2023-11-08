@@ -16,6 +16,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.pager.rememberPagerState
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.ButtonDefaults
@@ -29,11 +30,14 @@ import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.mmag.triviatraining.presentation.TriviaTrainingRouteBuilder
 import com.mmag.triviatraining.presentation.common_components.PageIndicator
 import com.mmag.triviatraining.presentation.ui.font.fontExo
+import com.mmag.triviatraining.presentation.ui.theme.Purple50
+import com.mmag.triviatraining.presentation.ui.theme.Purple80
 import com.mmag.triviatraining.presentation.ui.theme.md_theme_dark_onError
 import com.mmag.triviatraining.presentation.ui.theme.md_theme_dark_secondary
 import com.mmag.triviatraining.presentation.ui.theme.md_theme_light_primary
@@ -42,6 +46,8 @@ import com.mmag.triviatraining.presentation.ui.theme.seed
 import com.mmag.triviatraining.presentation.ui_model.QuizCategory
 import com.mmag.triviatraining.presentation.ui_model.QuizQuestion
 import com.mmag.triviatraining.presentation.views.HomeViewModel
+import com.mmag.triviatraining.utils.getRandomGradientAngle
+import com.mmag.triviatraining.utils.gradientBackground
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -63,13 +69,18 @@ fun QuizScreen(
         verticalArrangement = Arrangement.Center,
         modifier = Modifier
             .fillMaxSize()
+            .gradientBackground(
+                listOf(md_theme_dark_secondary, Purple80, Purple50),
+                getRandomGradientAngle()
+            )
             .padding(bottom = 24.dp)
     ) {
         if (!questionList.isNullOrEmpty() && questionList != null) {
             HorizontalPager(
                 state = pagerState,
                 userScrollEnabled = false,
-                modifier = Modifier.weight(1f)
+                modifier = Modifier
+                    .weight(1f)
             ) { page ->
                 // Our page content
                 QuestionPage(

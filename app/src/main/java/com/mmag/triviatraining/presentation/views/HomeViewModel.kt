@@ -7,6 +7,7 @@ import com.mmag.triviatraining.data.data_source.DataSourceRepository
 import com.mmag.triviatraining.data.db.model.CategoryLocal
 import com.mmag.triviatraining.presentation.ui_model.QuizCategory
 import com.mmag.triviatraining.presentation.ui_model.QuizQuestion
+import com.mmag.triviatraining.presentation.ui_model.TriviaResponse
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -21,8 +22,9 @@ class HomeViewModel @Inject constructor(
     private val dataSourceRepository: DataSourceRepository
 ) : ViewModel() {
 
-    private var _categoriesState: MutableStateFlow<List<QuizCategory>?> = MutableStateFlow(null)
-    val categoriesState: StateFlow<List<QuizCategory>?> get() = _categoriesState
+    private var _categoriesState: MutableStateFlow<TriviaResponse<List<QuizCategory>>> =
+        MutableStateFlow(TriviaResponse.Loading())
+    val categoriesState: StateFlow<TriviaResponse<List<QuizCategory>>> get() = _categoriesState
 
     private var _questionList: MutableStateFlow<List<QuizQuestion>?> = MutableStateFlow(null)
     val questionList: StateFlow<List<QuizQuestion>?> get() = _questionList
@@ -30,10 +32,7 @@ class HomeViewModel @Inject constructor(
     init {
         viewModelScope.launch(Dispatchers.IO) {
             dataSourceRepository.getCategories().collect { it ->
-                if (!it.isNullOrEmpty()) {
-                    val list = it
-                    _categoriesState.emit(list)
-                }
+                _categoriesState.emit(it)
             }
         }
     }
@@ -41,11 +40,20 @@ class HomeViewModel @Inject constructor(
     fun requestCategoryQuestions(category: QuizCategory) {
         viewModelScope.launch(Dispatchers.IO) {
             _questionList.update { null }
-            dataSourceRepository.getQuestionsByCategory(category).collect {
-                if (it != null && it.size >= 10 && questionList.value == null) {
-                    val listCopy = it.shuffled()
-                    val sublist = listCopy.subList(0, 9)
-                    _questionList.update { sublist }
+            dataSourceRepository.getQuestionsByCategory(category).collect { response ->
+                when (response) {
+                    is TriviaResponse.Success -> {
+                        val list = response.data
+                        if (list != null && list.size >= 10 && questionList.value == null) {
+                            val listCopy = list.shuffled()
+                            val sublist = listCopy.subList(0, 9)
+                            _questionList.update { sublist }
+                        } else if (questionList.value == null) {
+                            _questionList.update { list }
+                        }
+                    }
+
+                    else -> _questionList.update { it }
                 }
             }
         }

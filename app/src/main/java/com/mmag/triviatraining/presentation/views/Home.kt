@@ -13,7 +13,10 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
+import androidx.compose.material3.CardColors
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
@@ -21,6 +24,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -30,68 +35,93 @@ import androidx.navigation.NavController
 import com.mmag.triviatraining.R
 import com.mmag.triviatraining.presentation.TriviaTrainingRouteBuilder
 import com.mmag.triviatraining.presentation.ui.font.fontExo
+import com.mmag.triviatraining.presentation.ui.styles.categoryTitleStyle
 import com.mmag.triviatraining.presentation.ui.styles.titleStyle
+import com.mmag.triviatraining.presentation.ui.theme.Purple40
+import com.mmag.triviatraining.presentation.ui.theme.Purple50
+import com.mmag.triviatraining.presentation.ui.theme.Purple80
 import com.mmag.triviatraining.presentation.ui.theme.md_theme_dark_secondary
 import com.mmag.triviatraining.presentation.ui.theme.md_theme_light_surfaceVariant
 import com.mmag.triviatraining.presentation.ui_model.QuizCategory
+import com.mmag.triviatraining.presentation.ui_model.TriviaResponse
+import com.mmag.triviatraining.utils.getRandomGradientAngle
+import com.mmag.triviatraining.utils.gradientBackground
 
 @Composable
 fun HomeScreen(
     navController: NavController,
     viewModel: HomeViewModel
 ) {
-    val categories by viewModel.categoriesState.collectAsStateWithLifecycle()
+    val categoriesState by viewModel.categoriesState.collectAsStateWithLifecycle()
     Column(
         modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        if (categories != null && !categories.isNullOrEmpty()) {
+        when (categoriesState) {
+            is TriviaResponse.Empty -> {
+                HomeTitle(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(12.dp)
+                )
+            }
 
-            LazyVerticalGrid(
-                modifier = Modifier.fillMaxWidth(),
-                columns = GridCells.Adaptive(minSize = 200.dp),
-                userScrollEnabled = true
-            ) {
+            is TriviaResponse.Error -> {
+                HomeTitle(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(12.dp)
+                )
+            }
 
-                item(span = { GridItemSpan(this.maxLineSpan) }) {
-                    Text(
-                        text = stringResource(id = R.string.home_greeting),
-                        style = titleStyle,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(12.dp)
-                    )
-                }
-                items(categories!!) { item ->
-                    CategoryItem(
-                        item = item,
-                        modifier = Modifier
-                            .defaultMinSize(minHeight = 200.dp)
-                            .fillMaxHeight()
-                            .padding(12.dp)
+            is TriviaResponse.Loading -> {
+                HomeTitle(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(12.dp)
+                )
+                CircularProgressIndicator(
+                    modifier = Modifier.width(64.dp),
+                    color = md_theme_light_surfaceVariant,
+                    trackColor = md_theme_dark_secondary,
+                )
+            }
+
+            is TriviaResponse.Success -> {
+                if (!categoriesState.data.isNullOrEmpty()) {
+                    LazyVerticalGrid(
+                        modifier = Modifier.fillMaxWidth(),
+                        columns = GridCells.Adaptive(minSize = 180.dp),
+                        userScrollEnabled = true
                     ) {
-                        viewModel.requestCategoryQuestions(item)
-                        navController.navigate(
-                            TriviaTrainingRouteBuilder.goToQuiz(
-                                item.id,
-                                item.name
+
+                        item(span = { GridItemSpan(this.maxLineSpan) }) {
+                            HomeTitle(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(12.dp)
                             )
-                        )
+                        }
+                        items(categoriesState.data!!) { item ->
+                            CategoryItem(
+                                item = item,
+                                modifier = Modifier
+                                    .defaultMinSize(minHeight = 180.dp)
+                                    .fillMaxHeight()
+                                    .padding(12.dp)
+                            ) {
+                                viewModel.requestCategoryQuestions(item)
+                                navController.navigate(
+                                    TriviaTrainingRouteBuilder.goToQuiz(
+                                        item.id,
+                                        item.name
+                                    )
+                                )
+                            }
+                        }
                     }
                 }
             }
-        } else {
-            Text(
-                text = stringResource(id = R.string.home_greeting),
-                fontSize = 28.sp,
-                fontWeight = FontWeight.W500,
-                modifier = Modifier.padding(12.dp)
-            )
-            CircularProgressIndicator(
-                modifier = Modifier.width(64.dp),
-                color = md_theme_light_surfaceVariant,
-                trackColor = md_theme_dark_secondary,
-            )
         }
     }
 }
@@ -102,15 +132,33 @@ fun CategoryItem(item: QuizCategory, modifier: Modifier, onClick: () -> Unit) {
     Card(
         onClick = { onClick() },
         modifier = modifier
+            .clip(RoundedCornerShape(12.dp))
+            .gradientBackground(
+                listOf(md_theme_dark_secondary, Purple80, Purple50),
+                getRandomGradientAngle()
+            ),
+        colors = CardDefaults.cardColors(containerColor = Color.Transparent)
     ) {
         Column(
-            Modifier
-                .fillMaxSize()
+            modifier = modifier
                 .padding(12.dp),
             verticalArrangement = Arrangement.Bottom
         ) {
-            Text(text = item.name, fontFamily = fontExo)
+            Text(
+                text = item.name,
+                style = categoryTitleStyle
+            )
         }
 
     }
+}
+
+@Composable
+fun HomeTitle(modifier: Modifier) {
+    Text(
+        text = stringResource(id = R.string.home_greeting),
+        fontSize = 28.sp,
+        fontWeight = FontWeight.W500,
+        modifier = modifier
+    )
 }
