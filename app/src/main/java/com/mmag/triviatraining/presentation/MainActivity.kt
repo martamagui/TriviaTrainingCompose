@@ -10,13 +10,13 @@ import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.rememberNavController
 import com.mmag.triviatraining.presentation.ui.theme.TriviaTrainingTheme
-import com.mmag.triviatraining.presentation.views.HomeViewModel
+import com.mmag.triviatraining.presentation.viewmodel.HomeViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
-    private val viewModel: HomeViewModel by viewModels()
+    private val homeViewModel: HomeViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,7 +28,7 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
                     val navController = rememberNavController()
-                    TriviaTrainingMainNavGraph(navController, viewModel = viewModel)
+                    TriviaTrainingMainNavGraph(navController, viewModel = homeViewModel)
                 }
             }
         }

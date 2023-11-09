@@ -1,10 +1,8 @@
-package com.mmag.triviatraining.presentation.views
+package com.mmag.triviatraining.presentation.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mmag.triviatraining.data.data_source.DataSourceRepository
-import com.mmag.triviatraining.data.db.model.CategoryLocal
 import com.mmag.triviatraining.presentation.ui_model.QuizCategory
 import com.mmag.triviatraining.presentation.ui_model.QuizQuestion
 import com.mmag.triviatraining.presentation.ui_model.TriviaResponse
@@ -12,8 +10,8 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.job
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -46,8 +44,9 @@ class HomeViewModel @Inject constructor(
                         val list = response.data
                         if (list != null && list.size >= 10 && questionList.value == null) {
                             val listCopy = list.shuffled()
-                            val sublist = listCopy.subList(0, 9)
+                            val sublist = listCopy.subList(0, 10)
                             _questionList.update { sublist }
+                            this.coroutineContext.job.cancel()
                         } else if (questionList.value == null) {
                             _questionList.update { list }
                         }

@@ -1,4 +1,4 @@
-package com.mmag.triviatraining.presentation.views
+package com.mmag.triviatraining.presentation.views.home
 
 
 import androidx.compose.foundation.layout.Arrangement
@@ -15,7 +15,6 @@ import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
-import androidx.compose.material3.CardColors
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -34,16 +33,14 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.mmag.triviatraining.R
 import com.mmag.triviatraining.presentation.TriviaTrainingRouteBuilder
-import com.mmag.triviatraining.presentation.ui.font.fontExo
 import com.mmag.triviatraining.presentation.ui.styles.categoryTitleStyle
-import com.mmag.triviatraining.presentation.ui.styles.titleStyle
-import com.mmag.triviatraining.presentation.ui.theme.Purple40
 import com.mmag.triviatraining.presentation.ui.theme.Purple50
 import com.mmag.triviatraining.presentation.ui.theme.Purple80
 import com.mmag.triviatraining.presentation.ui.theme.md_theme_dark_secondary
 import com.mmag.triviatraining.presentation.ui.theme.md_theme_light_surfaceVariant
 import com.mmag.triviatraining.presentation.ui_model.QuizCategory
 import com.mmag.triviatraining.presentation.ui_model.TriviaResponse
+import com.mmag.triviatraining.presentation.viewmodel.HomeViewModel
 import com.mmag.triviatraining.utils.getRandomGradientAngle
 import com.mmag.triviatraining.utils.gradientBackground
 
@@ -156,7 +153,7 @@ fun CategoryItem(item: QuizCategory, modifier: Modifier, onClick: () -> Unit) {
 @Composable
 fun HomeTitle(modifier: Modifier) {
     Text(
-        text = stringResource(id = R.string.home_greeting),
+        text = stringResource(id = R.string.home_title),
         fontSize = 28.sp,
         fontWeight = FontWeight.W500,
         modifier = modifier

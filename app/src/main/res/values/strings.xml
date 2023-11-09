@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">Trivia Training</string>
-    <string name="home_greeting">Welcome to TriviaTraining!</string>
+    <string name="home_title">Categories</string>
 
 
     <string name="result_title">Your score in this quiz was: %1s\n</string>

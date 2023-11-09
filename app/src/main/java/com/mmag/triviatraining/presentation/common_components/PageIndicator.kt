@@ -16,9 +16,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.mmag.triviatraining.presentation.ui.theme.md_theme_dark_onPrimary
 import com.mmag.triviatraining.presentation.ui.theme.md_theme_dark_tertiary
 import com.mmag.triviatraining.presentation.ui.theme.md_theme_light_background
+import com.mmag.triviatraining.presentation.ui.theme.md_theme_light_primary
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
@@ -28,12 +28,12 @@ fun PageIndicator(pagerState: PagerState) {
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier
             .clip(RoundedCornerShape(8.dp))
-            .background(md_theme_dark_onPrimary)
+            .background(md_theme_light_primary)
             .padding(4.dp, 2.dp)
     ) {
         items(pagerState.pageCount) {
             val isCurrentPage = it == pagerState.currentPage
-            val size = if (isCurrentPage) 10 else 8
+            val size = if (isCurrentPage) 11 else 8
             val padding = 1
             val color = if (isCurrentPage) md_theme_light_background else md_theme_dark_tertiary
             DotIndicator(modifier = Modifier.padding(padding.dp), size = size, color = color)

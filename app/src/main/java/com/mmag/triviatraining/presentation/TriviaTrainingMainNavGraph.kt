@@ -8,8 +8,8 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.mmag.triviatraining.presentation.ui_model.QuizCategory
-import com.mmag.triviatraining.presentation.views.HomeScreen
-import com.mmag.triviatraining.presentation.views.HomeViewModel
+import com.mmag.triviatraining.presentation.views.home.HomeScreen
+import com.mmag.triviatraining.presentation.viewmodel.HomeViewModel
 import com.mmag.triviatraining.presentation.views.ResultScreen
 import com.mmag.triviatraining.presentation.views.SplashScreen
 import com.mmag.triviatraining.presentation.views.quiz.QuizScreen
