@@ -99,7 +99,7 @@ fun HomeScreen(
                                     .padding(12.dp)
                             )
                         }
-                        items(categoriesState.data!!) { item ->
+                        items(categoriesState.data!!, key = { it -> it.id }) { item ->
                             CategoryItem(
                                 item = item,
                                 modifier = Modifier

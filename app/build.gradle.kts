@@ -78,6 +78,7 @@ dependencies {
     val retrofit_version = "2.9.0"
     val nav_version = "2.6.0"
     val material_version = "1.2.0-alpha02"
+    val mockito_version = "4.1.0"
 
     //Material
     implementation("androidx.compose.material3:material3:$material_version")
@@ -85,15 +86,15 @@ dependencies {
     //Dagger Hilt
     implementation("com.google.dagger:hilt-android:$hilt_version")
     kapt("com.google.dagger:hilt-android-compiler:$hilt_version")
-    kapt ("androidx.hilt:hilt-compiler:1.0.0")
-    implementation ("androidx.hilt:hilt-navigation-compose:1.0.0")
+    kapt("androidx.hilt:hilt-compiler:1.0.0")
+    implementation("androidx.hilt:hilt-navigation-compose:1.0.0")
 
 
     //LiveData
     val lifecycleVersion = "2.6.0-alpha05"
-    implementation ("androidx.lifecycle:lifecycle-viewmodel-compose:$lifecycleVersion")
-    implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion")
-    implementation ("androidx.lifecycle:lifecycle-runtime-compose:$lifecycleVersion")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:$lifecycleVersion")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion")
+    implementation("androidx.lifecycle:lifecycle-runtime-compose:$lifecycleVersion")
 
     //Room
     implementation("androidx.room:room-runtime:$room_version")
@@ -124,7 +125,14 @@ dependencies {
     androidTestImplementation("androidx.compose.ui:ui-test-junit4")
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
+    //Mocks
+  /*  testImplementation("org.mockito:mockito-core:$mockito_version")
+    testImplementation("org.mockito:mockito-inline:2.8.47")
+    testImplementation("org.mockito:mockito-android:$mockito_version")*/
 
+    androidTestImplementation("org.mockito:mockito-android:$mockito_version")
+    androidTestImplementation("org.mockito:mockito-core:$mockito_version")
+    androidTestImplementation("org.mockito:mockito-inline:2.8.47")
 
 }
 
