@@ -1,9 +1,9 @@
 plugins {
-    id(Plugins.App.application)
-    id(Plugins.App.android)
-    id(Plugins.App.gradleSecrets)
-    kotlin(Plugins.App.kapt)
-    id(Plugins.App.hilt)
+    id(Plugins.application)
+    id(Plugins.android)
+    id(Plugins.gradleSecrets)
+    kotlin(Plugins.kapt)
+    id(Plugins.hilt)
 }
 
 android {
