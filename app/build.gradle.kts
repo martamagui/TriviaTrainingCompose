@@ -1,15 +1,14 @@
 plugins {
-    id("com.android.application")
-    id("org.jetbrains.kotlin.android")
-    id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
-    kotlin("kapt")
-    id("com.google.dagger.hilt.android")
+    id(Plugins.App.application)
+    id(Plugins.App.android)
+    id(Plugins.App.gradleSecrets)
+    kotlin(Plugins.App.kapt)
+    id(Plugins.App.hilt)
 }
 
 android {
     namespace = "com.mmag.triviatraining"
     compileSdk = 34
-
     defaultConfig {
         applicationId = "com.mmag.triviatraining"
         minSdk = 24
@@ -64,75 +63,56 @@ android {
 
 dependencies {
 
-    implementation("androidx.core:core-ktx:1.9.0")
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.2")
-    implementation("androidx.activity:activity-compose:1.8.0")
-    implementation(platform("androidx.compose:compose-bom:2023.03.00"))
-    implementation("androidx.compose.ui:ui")
-    implementation("androidx.compose.ui:ui-graphics")
-    implementation("androidx.compose.ui:ui-tooling-preview")
-    implementation("androidx.compose.material3:material3")
+    implementation(Libs.AndroidX.core)
+    implementation(Libs.AndroidX.runtimeKtx)
+    implementation(Libs.Compose.composeActivity)
+    implementation(platform(Libs.Compose.composePlatform))
+    implementation(Libs.Compose.composeUi)
+    implementation(Libs.Compose.composeGraphics)
+    implementation(Libs.Compose.composeToolingPreview)
+    implementation(Libs.Compose.composeMaterial3)
 
-    val room_version = "2.5.0"
-    val hilt_version = "2.44"
-    val retrofit_version = "2.9.0"
-    val nav_version = "2.6.0"
-    val material_version = "1.2.0-alpha02"
-    val mockito_version = "4.1.0"
-
-    //Material
-    implementation("androidx.compose.material3:material3:$material_version")
 
     //Dagger Hilt
-    implementation("com.google.dagger:hilt-android:$hilt_version")
-    kapt("com.google.dagger:hilt-android-compiler:$hilt_version")
-    kapt("androidx.hilt:hilt-compiler:1.0.0")
-    implementation("androidx.hilt:hilt-navigation-compose:1.0.0")
+    implementation(Libs.Hilt.hilt)
+    kapt(Libs.Hilt.hiltCompiler)
+    implementation(Libs.Hilt.composeNavigation)
 
 
-    //LiveData
-    val lifecycleVersion = "2.6.0-alpha05"
-    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:$lifecycleVersion")
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion")
-    implementation("androidx.lifecycle:lifecycle-runtime-compose:$lifecycleVersion")
+    //LifeCycle
+    implementation(Libs.AndroidX.viewModelCompose)
+    implementation(Libs.AndroidX.viewModelKtx)
+    implementation(Libs.AndroidX.composeRuntime)
 
     //Room
-    implementation("androidx.room:room-runtime:$room_version")
-    kapt("androidx.room:room-compiler:$room_version")
-    implementation("androidx.room:room-ktx:$room_version")
+    implementation(Libs.Room.roomRuntime)
+    kapt(Libs.Room.roomCompiler)
+    implementation(Libs.Room.roomKtx)
 
     //Retrofit
-    implementation("com.squareup.retrofit2:retrofit:$retrofit_version")
-    implementation("com.squareup.retrofit2:converter-gson:$retrofit_version")
-    implementation("com.squareup.okhttp3:logging-interceptor:4.11.0")
+    implementation(Libs.Retrofit.retrofit)
+    implementation(Libs.Retrofit.gson)
+    implementation(Libs.Retrofit.interceptor)
 
     //Compose navigation
-    implementation("androidx.navigation:navigation-compose:$nav_version")
+    implementation(Libs.Compose.composeNavigation)
 
     //DataStore
-    implementation("androidx.datastore:datastore-preferences:1.0.0")
+    implementation(Libs.dataStore)
 
     //Work
-    implementation("androidx.work:work-runtime-ktx:2.8.1")
-    implementation("androidx.hilt:hilt-common:1.1.0")
-    implementation("androidx.hilt:hilt-work:1.1.0")
+    implementation(Libs.Work.workRuntime)
+    implementation(Libs.Hilt.hiltCommon)
+    implementation(Libs.Hilt.hiltWork)
 
     // Test
-    testImplementation("junit:junit:4.13.2")
-    androidTestImplementation("androidx.test.ext:junit:1.1.5")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
-    androidTestImplementation(platform("androidx.compose:compose-bom:2023.03.00"))
-    androidTestImplementation("androidx.compose.ui:ui-test-junit4")
-    debugImplementation("androidx.compose.ui:ui-tooling")
-    debugImplementation("androidx.compose.ui:ui-test-manifest")
-    //Mocks
-  /*  testImplementation("org.mockito:mockito-core:$mockito_version")
-    testImplementation("org.mockito:mockito-inline:2.8.47")
-    testImplementation("org.mockito:mockito-android:$mockito_version")*/
-
-    androidTestImplementation("org.mockito:mockito-android:$mockito_version")
-    androidTestImplementation("org.mockito:mockito-core:$mockito_version")
-    androidTestImplementation("org.mockito:mockito-inline:2.8.47")
+    testImplementation(Libs.Test.junit4)
+    androidTestImplementation(Libs.Test.testExt)
+    androidTestImplementation(Libs.Test.espresso)
+    androidTestImplementation(platform(Libs.Compose.composePlatform))
+    androidTestImplementation(Libs.Compose.Debug.composeUiTestJunit4)
+    debugImplementation(Libs.Compose.Debug.composeUiTooling)
+    debugImplementation(Libs.Compose.Debug.composeUiTestManifest)
 
 }
 
