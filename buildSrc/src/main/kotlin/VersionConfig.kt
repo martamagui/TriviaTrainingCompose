@@ -1,4 +1,5 @@
 object VersionConfig {
+
     //region --- Plugins
     const val application = "8.1.1"
     const val android = "1.8.10"
@@ -18,9 +19,10 @@ object VersionConfig {
     const val lifecycleVersion = "2.6.2"
     const val roomVersion = "2.5.0"
     const val dataStore = "1.0.0"
-    const val composeBom = "2023.03.00"
+    const val composeBom = "2023.10.00"
     const val compose = "1.8.0"
     const val work = "2.8.1"
+    const val appCompat = "1.6.1"
 
     //region --- Test ---
     const val jUnit4 = "4.13.2"

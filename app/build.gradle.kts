@@ -1,123 +1,77 @@
 plugins {
     id(Plugins.application)
-    id(Plugins.android)
+    id(Plugins.kotlinAndroid)
     id(Plugins.gradleSecrets)
     kotlin(Plugins.kapt)
     id(Plugins.hilt)
 }
 
 android {
-    namespace = "com.mmag.triviatraining"
-    compileSdk = 34
+    namespace = ConfigurationData.App.nameSpace
+    compileSdk = ConfigurationData.App.compileSdk
     defaultConfig {
-        applicationId = "com.mmag.triviatraining"
-        minSdk = 24
-        targetSdk = 33
-        versionCode = 1
-        versionName = "1.0"
+        applicationId = ConfigurationData.App.applicationId
+        minSdk = ConfigurationData.App.minSdk
+        targetSdk = ConfigurationData.App.targetSdk
+        versionCode = ConfigurationData.App.versionCode
+        versionName = ConfigurationData.App.versionName
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner = ConfigurationData.App.testInstrumentationRunner
         vectorDrawables {
             useSupportLibrary = true
         }
-
-
     }
     buildTypes {
         release {
             isMinifyEnabled = false
             proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
+                getDefaultProguardFile(ConfigurationData.App.proguardFile),
+                ConfigurationData.App.proguardRules
             )
             isDebuggable = false
         }
         debug {
             proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
+                getDefaultProguardFile(ConfigurationData.App.proguardFile),
+                ConfigurationData.App.proguardRules
             )
             isDebuggable = true
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
+        sourceCompatibility = ConfigurationData.App.javaVersion
+        targetCompatibility = ConfigurationData.App.javaVersion
     }
     kotlinOptions {
-        jvmTarget = "17"
+        jvmTarget = ConfigurationData.App.jvmTarget
     }
     buildFeatures {
         compose = true
         buildConfig = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.4.3"
+        kotlinCompilerExtensionVersion = ConfigurationData.App.kotlinCompiler
     }
     packaging {
         resources {
-            excludes += "/META-INF/{AL2.0,LGPL2.1}"
+            excludes += ConfigurationData.App.excludes
         }
     }
 }
 
 dependencies {
-
-    implementation(Libs.AndroidX.core)
-    implementation(Libs.AndroidX.runtimeKtx)
-    implementation(Libs.Compose.composeActivity)
-    implementation(platform(Libs.Compose.composePlatform))
-    implementation(Libs.Compose.composeUi)
-    implementation(Libs.Compose.composeGraphics)
-    implementation(Libs.Compose.composeToolingPreview)
-    implementation(Libs.Compose.composeMaterial3)
-
-
-    //Dagger Hilt
-    implementation(Libs.Hilt.hilt)
-    kapt(Libs.Hilt.hiltCompiler)
-    implementation(Libs.Hilt.composeNavigation)
-
-
-    //LifeCycle
-    implementation(Libs.AndroidX.viewModelCompose)
-    implementation(Libs.AndroidX.viewModelKtx)
-    implementation(Libs.AndroidX.composeRuntime)
-
-    //Room
-    implementation(Libs.Room.roomRuntime)
-    kapt(Libs.Room.roomCompiler)
-    implementation(Libs.Room.roomKtx)
-
-    //Retrofit
-    implementation(Libs.Retrofit.retrofit)
-    implementation(Libs.Retrofit.gson)
-    implementation(Libs.Retrofit.interceptor)
-
-    //Compose navigation
-    implementation(Libs.Compose.composeNavigation)
-
-    //DataStore
-    implementation(Libs.dataStore)
-
-    //Work
-    implementation(Libs.Work.workRuntime)
-    implementation(Libs.Hilt.hiltCommon)
-    implementation(Libs.Hilt.hiltWork)
-
-    // Test
-    testImplementation(Libs.Test.junit4)
-    androidTestImplementation(Libs.Test.testExt)
-    androidTestImplementation(Libs.Test.espresso)
-    androidTestImplementation(platform(Libs.Compose.composePlatform))
-    androidTestImplementation(Libs.Compose.Debug.composeUiTestJunit4)
-    debugImplementation(Libs.Compose.Debug.composeUiTooling)
-    debugImplementation(Libs.Compose.Debug.composeUiTestManifest)
+    addAndroidXImplementations()
+    addHiltImplementation()
+    addRetrofitImplementation()
+    addDataStoreImplementation()
+    addWorkImplementation()
+    implementation(project(mapOf("path" to ":app:datasource:database")))
+    addTestImplementations()
 
 }
 
 secrets {
     // Optionally specify a different file name containing your secrets.
     // The plugin defaults to "local.properties"
-    propertiesFileName = "secrets.properties"
+    propertiesFileName = ConfigurationData.App.propertiesFileName
 }

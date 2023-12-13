@@ -1,6 +1,15 @@
+import Utils.addPlatform
+import Utils.androidTestImplementation
+import Utils.debugImplementation
+import Utils.implementation
+import Utils.kapt
+import Utils.testImplementation
+import org.gradle.api.artifacts.dsl.DependencyHandler
+
 object Libs {
     object AndroidX {
         val core by lazy { "androidx.core:core-ktx:${VersionConfig.androidCore}" }
+        val appCompat by lazy { "androidx.appcompat:appcompat:${VersionConfig.appCompat}" }
         val runtimeKtx by lazy { "androidx.lifecycle:lifecycle-runtime-ktx:${VersionConfig.lifecycleVersion}" }
         val viewModelCompose by lazy { "androidx.lifecycle:lifecycle-viewmodel-compose:${VersionConfig.lifecycleVersion}" }
         val viewModelKtx by lazy { "androidx.lifecycle:lifecycle-viewmodel-ktx:${VersionConfig.lifecycleVersion}" }
@@ -33,7 +42,7 @@ object Libs {
         val composeUi by lazy { "androidx.compose.ui:ui" }
         val composeGraphics by lazy { "androidx.compose.ui:ui-graphics" }
         val composeToolingPreview by lazy { "androidx.compose.ui:ui-tooling-preview" }
-        val composeMaterial3 by lazy { "androidx.compose.material3:material3" }
+        val composeMaterial3 by lazy { "androidx.compose.material3:material3:1.2.0-alpha12" }
         val composeNavigation by lazy { "androidx.navigation:navigation-compose:${VersionConfig.navVersion}" }
 
         object Debug {
@@ -49,8 +58,8 @@ object Libs {
 
     object Test {
         val junit4 by lazy { "junit:junit:${VersionConfig.jUnit4}" }
-        val testExt by lazy { "androidx.test.ext:junit:${VersionConfig.jUnit}" }
-        val espresso by lazy { "androidx.test.espresso:espresso-core:${VersionConfig.espresso}" }
+        val testExtJunit by lazy { "androidx.test.ext:junit:${VersionConfig.jUnit}" }
+        val espressoCore by lazy { "androidx.test.espresso:espresso-core:${VersionConfig.espresso}" }
     }
 
     val dataStore by lazy { "androidx.datastore:datastore-preferences:${VersionConfig.dataStore}" }
