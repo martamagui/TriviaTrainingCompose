@@ -60,12 +60,15 @@ android {
 }
 
 dependencies {
+    implementation(project(mapOf("path" to ":app:data")))
+    implementation(project(mapOf("path" to ":app:domain")))
+    implementation(project(mapOf("path" to ":app:utils")))
     addAndroidXImplementations()
     addHiltImplementation()
+    addRoomImplementation()
     addRetrofitImplementation()
     addDataStoreImplementation()
     addWorkImplementation()
-    implementation(project(mapOf("path" to ":app:datasource:database")))
     addTestImplementations()
 
 }

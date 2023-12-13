@@ -22,9 +22,9 @@ import com.mmag.triviatraining.presentation.ui.theme.Purple50
 import com.mmag.triviatraining.presentation.ui.theme.Purple80
 import com.mmag.triviatraining.presentation.ui.theme.md_theme_dark_secondary
 import com.mmag.triviatraining.presentation.viewmodel.HomeViewModel
-import com.mmag.triviatraining.utils.getRandomGradientAngle
-import com.mmag.triviatraining.utils.gradientBackground
-import com.mmag.triviatraining.utils.toStringFormatted
+import com.mmag.utils.getRandomGradientAngle
+import com.mmag.triviatraining.presentation.extenions.gradientBackground
+import com.mmag.utils.toStringFormatted
 
 @Composable
 fun ResultScreen(

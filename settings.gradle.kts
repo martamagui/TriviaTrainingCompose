@@ -15,4 +15,6 @@ dependencyResolutionManagement {
 
 rootProject.name = "Trivia Training"
 include(":app")
- 
+include(":app:data")
+include(":app:domain")
+include(":app:utils")

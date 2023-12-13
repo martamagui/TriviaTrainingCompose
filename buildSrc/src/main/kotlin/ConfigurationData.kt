@@ -33,8 +33,8 @@ object ConfigurationData {
     }
 
     object Module {
-        const val dataSourceNameSpace = "com.mmag.datasource"
-        const val dataBaseNameSpace = "com.mmag.database"
+        const val dataNameSpace = "com.mmag.data"
+        const val domainNameSpace = "com.mmag.domain"
         val compileSdk get() = _compileSdk
         val minSdk get() = _minSdk
         val testInstrumentationRunner get() = _testInstrumentationRunner

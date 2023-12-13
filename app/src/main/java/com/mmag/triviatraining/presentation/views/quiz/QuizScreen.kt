@@ -40,11 +40,8 @@ import com.mmag.triviatraining.presentation.ui.theme.md_theme_dark_secondary
 import com.mmag.triviatraining.presentation.ui.theme.md_theme_light_primary
 import com.mmag.triviatraining.presentation.ui.theme.md_theme_light_surfaceVariant
 import com.mmag.triviatraining.presentation.ui.theme.seed
-import com.mmag.triviatraining.presentation.ui_model.QuizCategory
-import com.mmag.triviatraining.presentation.ui_model.QuizQuestion
 import com.mmag.triviatraining.presentation.viewmodel.HomeViewModel
-import com.mmag.triviatraining.utils.getRandomGradientAngle
-import com.mmag.triviatraining.utils.gradientBackground
+import com.mmag.triviatraining.presentation.extenions.gradientBackground
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -54,7 +51,7 @@ import kotlinx.coroutines.launch
 fun QuizScreen(
     navController: NavController,
     viewModel: HomeViewModel,
-    category: QuizCategory
+    category: com.mmag.domain.model.QuizCategory
 ) {
     val questionList by viewModel.questionList.collectAsState()
     val pagerState = rememberPagerState(pageCount = { questionList?.size ?: 0 })
@@ -68,7 +65,7 @@ fun QuizScreen(
             .fillMaxSize()
             .gradientBackground(
                 listOf(md_theme_dark_secondary, Purple80, Purple50),
-                getRandomGradientAngle()
+                com.mmag.utils.getRandomGradientAngle()
             )
             .padding(bottom = 24.dp)
     ) {
@@ -115,7 +112,7 @@ private fun onResponseInteraction(
     scope: CoroutineScope,
     pagerState: PagerState,
     navController: NavController,
-    questionList: List<QuizQuestion>?
+    questionList: List<com.mmag.domain.model.QuizQuestion>?
 ) {
     scope.launch {
         delay(400)
@@ -144,7 +141,7 @@ private fun onResponseInteraction(
 fun QuestionPage(
     modifier: Modifier,
     onInteraction: (value: Boolean) -> Unit,
-    question: QuizQuestion
+    question: com.mmag.domain.model.QuizQuestion
 ) {
     Card(modifier = modifier.padding(32.dp)) {
         Column(

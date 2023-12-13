@@ -38,11 +38,8 @@ import com.mmag.triviatraining.presentation.ui.theme.Purple50
 import com.mmag.triviatraining.presentation.ui.theme.Purple80
 import com.mmag.triviatraining.presentation.ui.theme.md_theme_dark_secondary
 import com.mmag.triviatraining.presentation.ui.theme.md_theme_light_surfaceVariant
-import com.mmag.triviatraining.presentation.ui_model.QuizCategory
-import com.mmag.triviatraining.presentation.ui_model.TriviaResponse
 import com.mmag.triviatraining.presentation.viewmodel.HomeViewModel
-import com.mmag.triviatraining.utils.getRandomGradientAngle
-import com.mmag.triviatraining.utils.gradientBackground
+import com.mmag.triviatraining.presentation.extenions.gradientBackground
 
 @Composable
 fun HomeScreen(
@@ -55,7 +52,7 @@ fun HomeScreen(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         when (categoriesState) {
-            is TriviaResponse.Empty -> {
+            is com.mmag.domain.model.TriviaResponse.Empty -> {
                 HomeTitle(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -63,7 +60,7 @@ fun HomeScreen(
                 )
             }
 
-            is TriviaResponse.Error -> {
+            is com.mmag.domain.model.TriviaResponse.Error -> {
                 HomeTitle(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -71,7 +68,7 @@ fun HomeScreen(
                 )
             }
 
-            is TriviaResponse.Loading -> {
+            is com.mmag.domain.model.TriviaResponse.Loading -> {
                 HomeTitle(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -84,7 +81,7 @@ fun HomeScreen(
                 )
             }
 
-            is TriviaResponse.Success -> {
+            is com.mmag.domain.model.TriviaResponse.Success -> {
                 if (!categoriesState.data.isNullOrEmpty()) {
                     LazyVerticalGrid(
                         modifier = Modifier.fillMaxWidth(),
@@ -125,14 +122,14 @@ fun HomeScreen(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CategoryItem(item: QuizCategory, modifier: Modifier, onClick: () -> Unit) {
+fun CategoryItem(item: com.mmag.domain.model.QuizCategory, modifier: Modifier, onClick: () -> Unit) {
     Card(
         onClick = { onClick() },
         modifier = modifier
             .clip(RoundedCornerShape(12.dp))
             .gradientBackground(
                 listOf(md_theme_dark_secondary, Purple80, Purple50),
-                getRandomGradientAngle()
+                com.mmag.utils.getRandomGradientAngle()
             ),
         colors = CardDefaults.cardColors(containerColor = Color.Transparent)
     ) {

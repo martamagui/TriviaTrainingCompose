@@ -2,10 +2,9 @@ package com.mmag.triviatraining.presentation.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.mmag.triviatraining.data.data_source.DataSourceRepository
-import com.mmag.triviatraining.presentation.ui_model.QuizCategory
-import com.mmag.triviatraining.presentation.ui_model.QuizQuestion
-import com.mmag.triviatraining.presentation.ui_model.TriviaResponse
+import com.mmag.domain.model.QuizCategory
+import com.mmag.domain.model.QuizQuestion
+import com.mmag.domain.model.TriviaResponse
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -17,7 +16,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    private val dataSourceRepository: DataSourceRepository
+    private val dataSourceRepository: com.mmag.data.data_source.DataSourceRepository
 ) : ViewModel() {
 
     private var _categoriesState: MutableStateFlow<TriviaResponse<List<QuizCategory>>> =

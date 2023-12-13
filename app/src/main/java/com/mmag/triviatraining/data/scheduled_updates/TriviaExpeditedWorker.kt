@@ -4,7 +4,7 @@ import android.content.Context
 import androidx.hilt.work.HiltWorker
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
-import com.mmag.triviatraining.data.data_source.DataSourceRepository
+import com.mmag.data.data_source.DataSourceRepository
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
 

@@ -7,7 +7,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import com.mmag.triviatraining.presentation.ui_model.QuizCategory
+import com.mmag.domain.model.QuizCategory
 import com.mmag.triviatraining.presentation.views.home.HomeScreen
 import com.mmag.triviatraining.presentation.viewmodel.HomeViewModel
 import com.mmag.triviatraining.presentation.views.ResultScreen
@@ -38,7 +38,7 @@ fun TriviaTrainingMainNavGraph(
             )
         ) {
             if (it.arguments != null) {
-                val category = QuizCategory(
+                val category = com.mmag.domain.model.QuizCategory(
                     it.arguments?.getInt("category")!!,
                     it.arguments?.getString("categoryName")!!
                 )
